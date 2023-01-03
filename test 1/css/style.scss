@@ -1,0 +1,57 @@
+@import './mixin';
+
+* {
+    padding: 0;
+    margin: 0;
+    text-decoration: none;
+    list-style: none;
+}
+
+// 데스크탑
+@include desktop {
+    .box {
+        background-color: lightblue;
+    }
+}
+
+// 노트북에서 데스크탑
+@include desktopToLaptop {
+    .box {
+        background-color: lightseagreen;
+    }
+}
+
+// 노트북
+@include laptop {
+    .box {
+        background-color: lightgoldenrodyellow;
+    }
+}
+
+// 태블릿에서 노트북
+@include laptopToTablet {
+    .box {
+        background-color: lightpink;
+    }
+}
+
+// 태블릿
+@include tablet {
+    .box {
+        background-color: lightgreen;
+    }
+}
+
+// 모바일에서 태블릿
+@include tabletToMobile {
+    .box {
+        background-color: lightcoral;
+    }
+}
+
+// 모바일
+@include mobile {
+    .box {
+        background-color: gray;
+    }
+}
