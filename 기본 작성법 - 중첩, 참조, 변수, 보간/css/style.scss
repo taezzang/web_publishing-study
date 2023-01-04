@@ -168,8 +168,7 @@ $var: 'Nana';
 }
 
 .h1 {
-    // ! TODO: 인라인 주석 테스트
-    margin: 0 auto; // asdf
+    // TODO: 인라인 주석 테스트
+    // Sass 덕에 인라인 주석 사용이 가능해진다!
+    margin: 0 auto;
 }
-
-// 수정 테스트
