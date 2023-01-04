@@ -1,3 +1,7 @@
+.wrap .main .section .article .title {
+  font-size: 20px;
+}
+
 .accordion {
   max-width: 600px;
   width: 90%;
@@ -26,6 +30,20 @@ button.isLoading {
 }
 button + button {
   margin-top: 10px;
+}
+
+.hello span {
+  color: blue;
+}
+.hellospan {
+  color: green;
+}
+.hello.span {
+  color: purple;
+}
+
+.b .a {
+  display: block;
 }
 
 .first {

@@ -1,0 +1,95 @@
+.wrap .main .section .article .title {
+  font-size: 20px;
+}
+
+.accordion {
+  max-width: 600px;
+  width: 90%;
+}
+.accordion__copy {
+  display: none;
+  color: gray;
+  line-height: 1.6;
+}
+.accordion__copy--open {
+  display: block;
+}
+
+button {
+  color: blue;
+}
+button:hover {
+  opacity: 0.5;
+}
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+button.isLoading {
+  color: green;
+}
+button + button {
+  margin-top: 10px;
+}
+
+.hello span {
+  color: blue;
+}
+.hellospan {
+  color: green;
+}
+.hello.span {
+  color: purple;
+}
+
+.b .a {
+  display: block;
+}
+
+.body {
+  content: "a";
+}
+
+.first {
+  content: "nana";
+}
+
+.second {
+  content: "like";
+}
+
+.underscore {
+  font-size: 200px;
+}
+
+.hypen {
+  font-size: 200px;
+}
+
+.icon-cart {
+  background-image: url("/icons/cart.png");
+}
+
+:root {
+  --color-accent: #0000ff;
+  --color-accent-100: rgba(0, 0, 255, 0.07);
+  --color-accent-200: rgba(0, 0, 255, 0.2);
+  --color-accent-300: rgba(0, 0, 255, 0.4);
+}
+
+.header {
+  position: fixed;
+  top: 50px;
+  background-image: url("/icons/cart.png");
+  width: calc(100vh - 200px);
+}
+
+.hello {
+  background-image: url("/images/Nana.png");
+}
+
+.h1 {
+  margin: 0 auto;
+}
+
+/*# sourceMappingURL=style.css.map */

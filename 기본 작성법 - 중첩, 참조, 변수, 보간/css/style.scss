@@ -1,0 +1,175 @@
+// 계층 구조가 시각적으로 바뀌며 중첩으로 css 적용할 때 더 보기 좋아진다.
+// 부모 요소를 한번만 작성해도 적용이 가능하다!
+.wrap {
+    //...
+    .main {
+        //...
+        .section {
+            //...
+            .article {
+                //...
+                .title {
+                    //...
+                    font-size: 20px;
+                }
+            }
+        }
+    }
+}
+
+// 한 엘리먼트 클래스 스타일 블럭 내에서 &를 통해 부모 선택자를 생략할 수 있다. (부모참조)
+// 아래 결과는 .accordion__copy, .accordion__copy--open 이 된다.
+.accordion {
+    max-width: 600px;
+    width: 90%;
+
+    &__copy {
+        display: none;
+        color: gray;
+        line-height: 1.6;
+
+        &--open {
+            display: block;
+        }
+    }
+}
+
+// &는 자기 자신을 재선택할 때도 유용하다.
+// &:hover나 & + p 처럼 스스로를 선택해서 작성도 가능
+button {
+    color: blue;
+
+    &:hover {
+        opacity: 0.5;
+    }
+
+    &:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+    }
+
+    &.isLoading {
+        color: green;
+    }
+
+    & + button {
+        margin-top: 10px;
+    }
+}
+
+// &가 컴파일 되면서 부모 선택자로 치환됨
+// 따라서 & span / &span / &.span 전부 다르게 취급됨
+.hello {
+    // .hello span
+    & span {
+        color: blue;
+    }
+
+    // .hellospan
+    &span {
+        color: green;
+    }
+
+    // .hello.span
+    &.span {
+        color: purple;
+    }
+}
+
+// 유의할 점...
+// & 선택자는 복합 선택자의 시작 부분에만 사용 가능
+// ex) :not(&)는 사용가능, but .item& 처럼 끝은 안됨
+
+// 추가!
+// 아래와 같이 자식 선택자 끝에 한 칸을 띄어쓰고 &을 사용 시 부모로 인식된다!
+
+.a {
+    .b & {
+        display: block;
+    }
+}
+
+// Sass 에선 $변수명 : 값; 으로 변수 선언 및 사용이 가능
+// 변수에는 문자, 숫자, boolean, 컬러값, null 등 다양한 값 담기 가능
+$color: #000;
+$darkmode: true;
+// 변수 선언 오른쪽에 있는 값을 SassScript라고 부름
+// 값을 담기만 하는 것 외에 비교 연산자 및 산술이 가능하고 함수의 인자로 넘길 수 있다.
+
+// 선언 위치에 따라 전역변수 또는 지역변수로 사용 가능
+.header {
+    $var-header: '이 변수는 .header 내에서만 쓸 수 있어요!';
+}
+
+.body {
+    //오류!
+    // content: $var-header;
+    content: 'a';
+}
+
+// 1. Sass의 변수는 컴파일되면서 사라진다.
+// 2. Sass의 변수는 한 번에 단 하나의 값만 가진다.
+// 3. Sass의 변수는 재할당 시 이전의 내용을 바꾸지 않는다.
+
+$var: 'nana';
+.first {
+    content: $var; // "nana"
+}
+// 여기서 var를 "like"로 바꾸지만 위의 .first 선택자 내부의 content는 "nana"를 유지한다!
+// 변수 할당 마지막에 !default 삽입 시 할당되어있는 변수가 있다면 해당 변수의 할당값을 사용한다는 의미
+$var: 'like'; // !default;
+.second {
+    content: $var; // "like"
+}
+
+// Sass 변수에서 하이픈(-)과 언더스코어(_)는 동일하게 취급됨
+// 따라서 아래 font_size 및 font-size 변수는 완벽하게 동일
+$font_size: 10px;
+$font-size: 200px;
+.underscore {
+    font-size: $font_size;
+}
+.hypen {
+    font-size: $font-size;
+}
+
+// 변수 사용법은 알겠는데 이걸 CSS 속성값 안에 끼워넣을 수 있을까?
+$name: 'cart';
+.icon-cart {
+    background-image: url('/icons/#{$name}.png');
+}
+// 문자열 내 그냥 $변수명은 동작되지 않고 #{} 라는 보간이 필요
+// 방법은 그냥 변수를 #{}로 감싸면 끝!
+
+$color-accent: #0000ff;
+
+:root {
+    --color-accent: #{$color-accent};
+    --color-accent-100: #{rgba($color-accent, 0.07)};
+    --color-accent-200: #{rgba($color-accent, 0.2)};
+    --color-accent-300: #{rgba($color-accent, 0.4)};
+}
+
+$position: top;
+$height: 200px;
+.header {
+    position: fixed;
+    #{$position}: 50px;
+    background-image: url('/icons/#{$name}.png');
+    width: calc(100vh - #{$height});
+}
+
+$size: 100;
+
+$var: 'Nana';
+
+.hello {
+    background-image: url('/images/#{$var}.png');
+}
+
+.h1 {
+    // ! TODO: 인라인 주석 테스트
+    margin: 0 auto; // asdf
+}
+
+// 수정 테스트
