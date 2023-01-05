@@ -1,3 +1,7 @@
+@use 'module1';
+@use 'module2';
+@use 'module3';
+
 // Mixin
 
 // 작업을 편하게 해줄 문법
@@ -151,3 +155,144 @@ $mobile: 540px;
         font-size: 12px;
     }
 }
+
+// IR 기법 공통 믹스인
+@mixin blind {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    border: 0;
+    white-space: nowrap;
+    clip: rect(0, 0, 0, 0);
+}
+
+// 말줄임 처리 공통 믹스인
+@mixin ellipsis($lines: 1) {
+    @if ($lines==1) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    } @else {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+    }
+}
+
+// Extend : 확장
+// 기본 내용에서 뭔가를 덧붙일 때 사용
+// 사용법은 이미 존재하는 셀렉터를 @extend로 지정
+.button {
+    font-weight: bold;
+    border-width: 1px;
+}
+
+.button-confirm {
+    @extend .button;
+    border-color: blue;
+}
+
+.button-error {
+    @extend .button;
+    border-color: red;
+}
+
+// placeholder
+// extend는 확장시킬 기본 스타일 선언이 필요 (이 스타일은 컴파일 된다)
+// 확장만을 위해 스타일을 선언할 것이라면 % 기호를 사용할 수 있다
+%title {
+    color: blue;
+    font-weight: bold;
+}
+// %title은 컴파일된 style.css 포함 되지 않는다!
+
+.title-main {
+    @extend %title;
+    font-size: 30px;
+}
+
+.title-sub {
+    @extend %title;
+    font-size: 18px;
+}
+
+// @mixin vs @extend
+// @mixin :
+//      인자 넣기 가능
+//      선택자 관리가 쉬워서 전역으로 쓰기 편함
+//      컴파일된 CSS가 길어짐
+// @extend :
+//      연관성 있는 셀렉터들을 묶어 관리 가능
+//      미디어쿼리 등으로 셀렉터가 묶일 수 없다면 못 씀
+
+// @mixin : 미리 정의한 속성을 복사해서 따로 적용
+// @extend :  선택자를 함께 묶어 속성을 한번에 적용
+
+// 핵심은 "얼마나 연관성이 있는가"
+
+// 선택자끼리 의미론적 관계가 있다면 @extend를,
+// 그렇지 않고 단순히 속성만 겹치는 관계라면 @mixin을 쓰는 것을 추천
+
+// 모듈화
+
+// CSS 쪼개기
+// 각 영역의 스타일을 분리해서 작성하면 더 효율적으로 스타일시트 관리 가능
+
+// @import로 타 스타일시트를 불러올 수 있다.
+// 일반 CSS에서 불러오는 방식은 직렬로 불러오기 때문에 권장하지 않는다.
+
+// Sass에서 @import를 통해 불러오는 건 좀 다름
+// Sass의 import는 "컴파일 과정에서 처리됨" 때문에 브라우저가 HTTP 요청을 여러 번 안해도 됨
+
+// _common.scss
+@import 'common';
+
+.button-important {
+    color: red;
+}
+
+// @import를 통해 변수, 믹스인도 가져올 수 있다.
+// _variable.scss, _mixin.scss 등으로 분리하면 좋을 듯
+
+// 이름 앞에 언더바 ( _ )가 붙은 scss는 컴파일되지 않는다.
+// 언더바 없이 작성한 스타일시트는 모두 독립적으로 컴파일됨
+// @import 할 때는 현재 파일 기준으로 찾는다.
+
+@import 'module1';
+@import 'module2';
+@import 'module3';
+
+h1 {
+    font-weight: $font-weight;
+}
+
+// @use
+//  - 항상 파일 시작부분에 쓰여야 함. 스타일 규칙에 포함 X
+//  - 가져온 멤버는 모두 네임스페이스를 갖는다.
+//  - 여러번 @use 하더라도 중복해서 가져오지 않는다.
+//  - 언더바(_) 또는 하이픈(-)으로 시작하는 멤버는 프라이빗으로 취급해 가져오지 않는다.
+
+// @import와 비슷하게 @use <불러올 scss 파일>
+// 차이점 : 멤버 사용 시 네임스페이스 지정
+
+// @use문을 이렇게 중간에 작성하면 에러가 난다!
+// @use 'module1';
+// @use 'module2';
+// @use 'module3';
+
+h1 {
+    font-weight: module1.$font-weight;
+}
+
+// 함수 및 mixin 등 다른 멤버들에게도 동일하게 네임스페이스 붙이자
+// @include 할 때 어느 파일의 mix인지 이름 적어야 함
+// @use 'mixin';
+
+// .title {
+//   @include mixin.ellipsis;
+// }

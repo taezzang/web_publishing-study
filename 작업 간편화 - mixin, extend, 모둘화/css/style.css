@@ -1,3 +1,5 @@
+@charset "UTF-8";
+/* 첫 번째 모듈 */ /* 두 번째 모듈 */ /* 세 번째 모듈 */ /* 두 번째 모듈 */
 h1 {
   color: #fff;
   background-color: yellow;
@@ -61,6 +63,51 @@ button.on {
   .title {
     font-size: 12px;
   }
+}
+
+.button, .button-error, .button-confirm {
+  font-weight: bold;
+  border-width: 1px;
+}
+
+.button-confirm {
+  border-color: blue;
+}
+
+.button-error {
+  border-color: red;
+}
+
+.title-sub, .title-main {
+  color: blue;
+  font-weight: bold;
+}
+
+.title-main {
+  font-size: 30px;
+}
+
+.title-sub {
+  font-size: 18px;
+}
+
+button {
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+}
+
+.button-important {
+  color: red;
+}
+
+/* 첫 번째 모듈 */ /* 두 번째 모듈 */ /* 세 번째 모듈 */ /* 두 번째 모듈 */
+h1 {
+  font-weight: 200;
+}
+
+h1 {
+  font-weight: 100;
 }
 
 /*# sourceMappingURL=style.css.map */
