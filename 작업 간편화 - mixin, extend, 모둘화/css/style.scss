@@ -114,15 +114,16 @@ button {
     }
 }
 //  * 출력결과:
+/*
+    button:hover {
+    font-weight: bold;
+    color: red;
+    }
 
-//  button:hover {
-//    font-weight: bold;
-//    color: red;
-//  }
-
-//  button.on {
-//    color: red;
-//  }
+    button.on {
+    color: red;
+    }
+ */
 
 // 강의 글 저자는 미디어쿼리 분기문을 믹스인으로 만든 뒤 다른 곳에서 불러와 쓰는 용도로 사용
 
@@ -270,8 +271,12 @@ $mobile: 540px;
 h1 {
     font-weight: $font-weight;
 }
+// @import는 동일한 이름의 변수가 들어있는 여러 개의 css를 import했을 시
+// 해당 변수의 출신이 어디인지 알 수가 없고
+// 같은 모듈을 여러번 @import하면 전부 컴파일하는 단점이 있음
+// 이러한 단점을 해결하기 위해 개발된 것이 @use
 
-// @use
+// @use 주요 특징
 //  - 항상 파일 시작부분에 쓰여야 함. 스타일 규칙에 포함 X
 //  - 가져온 멤버는 모두 네임스페이스를 갖는다.
 //  - 여러번 @use 하더라도 중복해서 가져오지 않는다.
@@ -281,6 +286,7 @@ h1 {
 // 차이점 : 멤버 사용 시 네임스페이스 지정
 
 // @use문을 이렇게 중간에 작성하면 에러가 난다!
+// 각 파일 최상단에 불러와 쓰자
 // @use 'module1';
 // @use 'module2';
 // @use 'module3';
@@ -296,3 +302,57 @@ h1 {
 // .title {
 //   @include mixin.ellipsis;
 // }
+
+// @use를 쓰면 네임스페이스를 같이 적어야 하므로 이름을 지을 때 되도록 간단하게 짓자
+/*
+    @use 'me';
+    @use 'you';
+
+    .my-name {
+        content: me.$name;
+    }
+
+    .your-name {
+        content: you.$name;
+    }
+*/
+
+//네임 스페이스는 기본적으로 파일명을 가리킴 (URL의 마지막 요소)
+// 다른 네임스페이스로 설정 가능
+
+// @use [url] as [namespace]
+/*
+    @use 'module1' as m;
+    @use 'module2' as mmmmm;
+
+    h1 {
+        color: mmmmm.$color;
+    }
+
+    네임스페이스 부분을 *(와일드 카드)로 쓰면 네임스페이스 없이 불러옴
+    @use "module1" as *;
+    @use "module2" as *;
+ 
+    h1 {
+    color: $color; //단, 동일한 변수가 있는 경우 충돌
+    }
+
+    대신 @import와 다르게 @use는 덮어씌우지 않고 컴파일 단계에서 에러로 알려줌
+*/
+
+// @forward
+// @use를 사용하면 오로지 불러온 곳에서만 멤버 사용 가능
+// 분리된 변수나 mixin 사용하려면 각 파일 상단에서 불러와야 함
+// 하나의 진입점을 만들고, 해당 파일이 관련된 scss모듈들을 전달하도록 함
+
+// @forward 시 접두사 지정이 가능
+// @forward [url] as [prefix]-*로 지정
+// 사용 시엔 [prefix]- 를 앞에 붙여 사용
+
+// 저자의 scss 폴더 구분 예시
+// base/: 리셋이나 노멀라이즈, 또는 아주 기본으로 쓰일 스타일(타이포그래피 등)
+// helpers/: 직접 스타일을 적용하지 않지만 개발에 필요한 스타일(믹스인, 함수 등)
+// components/: 말그대로 개별 컴포넌트!
+// pages/: 말그대로 개별 페이지!
+// vendors/: 외부 라이브러리 등을 사용하는 경우 필요한 스타일
+// styles.scss: 컴파일할 스타일시트

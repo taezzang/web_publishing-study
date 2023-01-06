@@ -51,6 +51,16 @@ button.on {
   color: red;
 }
 
+/*
+    button:hover {
+    font-weight: bold;
+    color: red;
+    }
+
+    button.on {
+    color: red;
+    }
+ */
 .title {
   font-size: 16px;
 }
@@ -109,5 +119,36 @@ h1 {
 h1 {
   font-weight: 100;
 }
+
+/*
+    @use 'me';
+    @use 'you';
+
+    .my-name {
+        content: me.$name;
+    }
+
+    .your-name {
+        content: you.$name;
+    }
+*/
+/*
+    @use 'module1' as m;
+    @use 'module2' as mmmmm;
+
+    h1 {
+        color: mmmmm.$color;
+    }
+
+    네임스페이스 부분을 *(와일드 카드)로 쓰면 네임스페이스 없이 불러옴
+    @use "module1" as *;
+    @use "module2" as *;
+
+    h1 {
+    color: $color; //단, 동일한 변수가 있는 경우 충돌
+    }
+
+    대신 @import와 다르게 @use는 덮어씌우지 않고 컴파일 단계에서 에러로 알려줌
+*/
 
 /*# sourceMappingURL=style.css.map */
