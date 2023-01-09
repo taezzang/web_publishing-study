@@ -1,9 +1,145 @@
+@use 'sass:color';
+@use 'sass:list';
+@use 'sass:map';
+
 // 이곳에서 다루는 것들 :
 // @if, @each 등의 흐름 제어문
 // list 변수와 map 변수
 // 내장 모듈이 제공하는 함수 사용하기
 // @function 으로 직접 함수 개발하기
-
-.test {
-    background-color: #000;
+// 흐름제어
+// 흐름 제어문이라고 부르는 @At-Rules들에 대해 살펴본다
+// @if, @each, @for, @while
+// Sass 내에서 조건문/반복문을 위해 사용한다
+// @if, @else
+// 조건에 따른 스타일 반환, 따라서 mixin과 궁합이 좋다
+// 인자로 뭘 받아오냐에 따라 분기가 가능하기 때문
+@mixin ellipsis($lines: 1) {
+    @if ($lines==1) {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    } @else {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: $lines;
+        -webkit-box-orient: vertical;
+    }
 }
+.text {
+    @include ellipsis;
+}
+.long-text {
+    @include ellipsis(3);
+}
+// 위 코드처럼 하지않고 mixin을 두개 만들어서 진행해도 되지만..
+// 거의 유사한 코드라 같은 이름 내에서 분기하는게 관리가 좀 더 편할 듯
+
+// @for
+// 특정 숫자 범위 내에서 반복시킬 때 사용
+// 현재 해당하는 인덱스(주로 $i로 표현)를 활용할 때 좋다
+.item {
+    $_length: 10;
+    $_color: #b2c0d5;
+
+    @for $i from 1 through $_length {
+        &:nth-child(#{$i}) {
+            z-index: ($_length + 1) - $i;
+            background-color: darken($_color, $i * 5%);
+        }
+    }
+}
+
+// @while
+// 조건이 true인 동안 반복함
+// 다른 반복문인 @for나 @each가 더 직관적이지 거의 사용 안함
+// 아래 예제에서 $idx 변수값을 계속 바꿀 수 있다는 점을 주목
+.item {
+    $idx: 1;
+    @while $idx < 5 {
+        &:nth-child(#{$idx}) {
+            filter: grayscale(1);
+            font-size: calc(10vmin + #{$idx * 2}vmin);
+        }
+        $idx: $idx + 1;
+    }
+}
+
+// 내장함수
+// 미리 정의 된 빌트-인 함수를 제공하고 있어 언제든 가져와 사용 가능
+
+// 색상 함수
+// scale() : 색상 값 계산
+// sass:color라는 내장 모듈이 필요하므로 @use 규칙으로 가져온다
+
+// @use 'sass:color'; // 모듈 호출
+$navy: #0a4069; // 변수 선언
+
+.btn {
+    background-color: $navy; // 변수 그대로 사용
+
+    // 사용법은 [네임스페이스].함수() ex) color.scale();
+    &:hover {
+        background-color: color.scale($navy, $lightness: 20%); // 색상값 변환 후 사용
+        // $navy의 값이 달라지더라고 20% 만큼 밝아지는 건 같으니 hover 색상을 따로 수정할 필요가 없어진다.
+    }
+}
+
+// 색상 함수 목록
+// scale() : 색상의 rgb, hsl 등을 -100%에서 +100%까지 조절한 값 리턴함
+// mix() : 색상끼리 혼합한 색상값을 리턴
+// invert() : 대비되는 색상값을 리턴 (rgb 값을 반대로 해서 반환)
+// grayscale() : 동일한 밝기의 회색값을 리턴
+
+// Sass에서 추천은 안하지만 호환성을 위해 빌트인 함수를 전역으로 사용 가능
+// if(), hsl(), rgb()는 멤버명 없이 전역으로 사용 가능
+
+// list, map function...
+// list와 map 변수를 인자로 받아 특정 값을 리턴
+// 저자는 주로 nth()와 get() 함수 사용
+
+// nth() : n번째에 해당하는 list 변수의 값을 알려줌
+// @use 'sass:list';
+$fontSize: 12px, 16px, 20px;
+
+.title {
+    font-size: list.nth($fontSize, 3); // 결과 : 20px
+    // 다른 프로그래밍 언어와 달리 1이 리스트의 첫번째 인덱스 값을 의미 ( 0 아님! )
+}
+
+// get() : map 변수의 특정 키에 해당하는 값을 알아낼 수 있음
+// @use 'sass:map';
+$weight: (
+    'light': 300,
+    'regular': 400,
+    'bold': 700,
+);
+
+.title {
+    // $weight라는 map 변수 내부의 'bold'라는 키에 해당하는 value 가져오기
+    font-weight: map.get($weight, 'bold'); // 결과 700
+}
+
+// 이런 내장 함수는 반복문 or 조건문과 결합하면 효율 극대화 가능
+// ex) @for는 1씩 늘어나는 인덱스를 사용하니 list 내부를 돌면서 인덱스와 일치하는 값을 쓰도록 할 수 있음
+$color: red, orange, yellow, green, blue;
+
+.lv {
+    @for $i from 1 through list.length($color) {
+        &:nth-child(#{$i}) {
+            background-color: list.nth($color, $i);
+            color: color.invert(list.nth($color, $i));
+        }
+    }
+}
+
+// 리스트 함수 목록
+// nth(): 리스트의 n번째에 해당하는 값을 리턴 (음수의 경우 뒤에서부터 계산)
+// length(): 리스트의 길이를 리턴
+// set-nth(): 리스트의 특정 n번째 요소를 교체하여 리턴
+// get(): 맵의 키와 연결된 값을 리턴
+// set(): 맵의 키와 연결된 값을 수정하여 리턴
+// has-key(): 맵의 키가 존재하는지 여부
+// keys(): 맵의 모든 키를 쉼표로 구분하여 리턴
+// values(): 맵의 모든 값을 쉼표로 구분하여 리턴
