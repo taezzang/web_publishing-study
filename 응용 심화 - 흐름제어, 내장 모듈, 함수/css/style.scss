@@ -230,3 +230,97 @@ $icons: (
 .icon2 {
     background-image: icon(moon, $fill: '#ffdb34');
 }
+
+// 알아두면 좋은 @at-rules 몇 가지와 Dart Sass 주요 변경사항
+
+// @erorr, @warm
+// 인수가 들어가는 함수/mixin에게 올바른 인수가 들어왔는지 확인하고 싶을 때 사용
+// @error는 오류난걸 알리며 컴파일을 중지하지만 @warn은 경고만 표시함
+@mixin lang($lang) {
+    $langs: 'ja', 'en';
+
+    @if not list.index($langs, $lang) {
+        @if $lang == 'jp' or $lang == 'jap' {
+            @warn '`#{$lang}`이 아니라 ja 입니다';
+            $lang: 'ja';
+        } @else {
+            @error '`#{$lang}`는 `#{$langs}`에 포함되어 있지 않습니다';
+        }
+    }
+
+    :lang(#{$lang}) {
+        @content;
+    }
+}
+
+@include lang(jp) {
+    // 경고 표시
+    .logo {
+        font-size: 18px;
+    }
+}
+
+// @include lang(asdf) {
+//     // 오류 표시 후 컴파일 중지
+//     .logo {
+//         font-size: 22px;
+//     }
+// }
+
+// @at-root
+// 표현식을 잠깐 root 레벨로 보내버릴 수 있다.
+.header {
+    .nav {
+        .menu {
+            .item {
+                @at-root {
+                    .title {
+                        font-size: 30px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// 컴파일 결과 : .title { font-size: 30px; }
+
+// @debug
+// 변수나 표현식이 맞게 들어갔는 지 확인하고 싶을 때 사용
+// console.log() 와 비슷한 것 같음
+$var1: 150;
+$var2: $var1 * 10;
+$var3: $var1 + $var2;
+
+@debug calc(100vw - #{$var3}px);
+
+// Dart Sass의 변경 사항
+// Dart Sass는 주요 변경사항이 릴리즈 하기 전 경고를 표시하고 이후 릴리즈를 실시함
+// 아래는 이후 변경 사항 중 흥미로운 2가지 항목
+
+// 사용자 정의 변수에 Sass 변수 사용
+// 사용자 정의 변수에 Sass 변수를 쓰려면 보간으로 감싸서 사용해야 제대로 동작함
+$color-accent: #000;
+:root {
+    --color-accent-800: $color-accent; // 동작 안함 (오류는 안나지만 $color-accent라는 문자열로 들어감
+    --color-accent-800: #{$color-accent};
+    --color-accent-800: #{rgba($color-accent, 0.2)};
+}
+
+// 슬래시로 나눗셈 연산
+$size: 200px;
+
+div {
+    width: $size / 5; // warning
+}
+
+div {
+    width: calc($size / 5); // ok
+}
+
+div {
+    width: math.div($size, 5); // ok
+}
+
+// Sass에서 / 는 나눗셈 연산을 수행하기도 하지만 구분자 기호로도 사용됨
+// 혼동을 막기 위해 나눗셈을 작성할 땐 calc()로 감싸거나 math.div() 함수로 감싸서 계산하는 걸 권장
