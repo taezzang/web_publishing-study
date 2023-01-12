@@ -1,0 +1,159 @@
+@charset "UTF-8";
+body {
+  padding: 80px;
+  font-family: "NanumSquareRound", sans-serif;
+  color: #555;
+}
+
+.container {
+  border: 10px solid rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+  display: grid;
+}
+
+.item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  box-sizing: border-box;
+  position: relative;
+  font-size: 20px;
+  color: #555;
+  font-weight: 900;
+  text-shadow: 3px 0 0 rgba(255, 255, 255, 0.5);
+}
+.item::before {
+  content: "";
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  border: 4px solid #555;
+  border-radius: 10px;
+  box-sizing: border-box;
+  width: calc(100% - 10px);
+  height: calc(100% - 10px);
+  z-index: -1;
+}
+.item:nth-child(1)::before {
+  background-color: rgba(255, 99, 71, 0.8);
+}
+.item:nth-child(2)::before {
+  background-color: rgba(255, 165, 0, 0.8);
+}
+.item:nth-child(3)::before {
+  background-color: rgba(50, 205, 50, 0.8);
+}
+.item:nth-child(4)::before {
+  background-color: rgba(30, 144, 255, 0.8);
+}
+.item:nth-child(5)::before {
+  background-color: rgba(255, 105, 180, 0.8);
+}
+.item:nth-child(6)::before {
+  background-color: rgba(169, 169, 169, 0.8);
+}
+.item:nth-child(7)::before {
+  background-color: rgba(220, 20, 60, 0.8);
+}
+.item:nth-child(8)::before {
+  background-color: rgba(255, 69, 0, 0.8);
+}
+.item:nth-child(9)::before {
+  background-color: rgba(124, 252, 0, 0.8);
+}
+.item:nth-child(10)::before {
+  background-color: rgba(0, 255, 255, 0.8);
+}
+.item:nth-child(11)::before {
+  background-color: rgba(65, 105, 225, 0.8);
+}
+.item:nth-child(12)::before {
+  background-color: rgba(245, 222, 179, 0.8);
+}
+.item:nth-child(13)::before {
+  background-color: rgba(165, 42, 42, 0.8);
+}
+.item:nth-child(14)::before {
+  background-color: rgba(128, 128, 128, 0.8);
+}
+.item:nth-child(15)::before {
+  background-color: rgba(250, 128, 114, 0.8);
+}
+.item:nth-child(16)::before {
+  background-color: rgba(255, 20, 147, 0.8);
+}
+.item:nth-child(17)::before {
+  background-color: rgba(255, 215, 0, 0.8);
+}
+.item:nth-child(18)::before {
+  background-color: rgba(0, 255, 127, 0.8);
+}
+.item:nth-child(19)::before {
+  background-color: rgba(106, 90, 205, 0.8);
+}
+.item:nth-child(20)::before {
+  background-color: rgba(47, 79, 79, 0.8);
+}
+.item::after {
+  content: "";
+  width: 10px;
+  height: 50%;
+  background: white;
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  border-radius: 100px;
+  opacity: 0.3;
+  z-index: -1;
+}
+
+/*
+    Grid Container Properties
+        - display: 그리드 컨테이너를 정의
+        - grid-template-rows: 명시적 행의 크기를 정의
+        - grid-template-columns: 명시적 열의 크기를 정의
+        - grid-template-areas: 영역 이름을 참조해 템플릿 생성
+        - grid-template: grid-template-xxx의 단축 속성
+        - row-gap(grid-row-gap): 행과 행 사이의 간격을 정의
+        - column-gap(grid-column-gap): 열과 열 사이의 간격을 정의
+        - gap(grid-gap): xxx-gap의 단축 속성
+        - grid-auto-rows: 암시적인 행의 크기를 정의
+        - grid-auto-columns: 암시적인 열의 크기를 정의
+        - grid-auto-flow: 자동 배치 알고리즘 방식을 정의
+        - grid: grid-template-xxx와 grid-auto-xxx의 단축 속성
+        - align-content: 그리드 콘텐츠를 수직 정렬
+        - justify-content: 그리드 콘텐츠를 수평 정렬
+        - place-content: align-content와 justify-content의 단축 속성
+        - align-items: 그리드 아이템을 수직 정렬
+        - justify-items: 그리드 아이템들을 수평 정렬
+        - place-items: align-items와 justify-items의 단축 속성
+*/
+/*
+    Grid Item Properties
+        - grid-row-start: 그리드 아이템의 행 시작 위치 지정
+        - grid-row-end: 그리드 아이템의 행 끝 위치 지정
+        - grid-row: grid-row-xxx의 단축 속성
+        - grid-column-start: 그리드 아이템의 열 시작 위치 지정
+        - grid-column-end: 그리드 아이템의 열 끝 위치 지정
+        - grid-column: grid-column-xxx의 단축 속성
+        - grid-area: 영역 이름을 설정하거나, grid-row와 grid-column의 단축 속성
+        - align-self: 단일 그리드 아이템을 수직 정렬
+        - justify-self: 단일 그리드 아이템을 수평 정렬
+        - place-self: align-self와 justify-self의 단축 속성
+        - order: 그리드 아이템의 배치 순서를 지정
+        - z-index: 그리드 아이템의 쌓이는 순서를 지정
+*/
+.container {
+  display: grid;
+  width: 600px;
+  height: 600px;
+}
+
+.container {
+  grid-template-columns: 250px 250px 250px;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+/*# sourceMappingURL=style.css.map */

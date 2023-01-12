@@ -1,0 +1,65 @@
+// Css Grid 학습 중 Properties 관련 부분
+
+/*
+    Grid Container Properties
+        - display: 그리드 컨테이너를 정의
+        - grid-template-rows: 명시적 행의 크기를 정의
+        - grid-template-columns: 명시적 열의 크기를 정의
+        - grid-template-areas: 영역 이름을 참조해 템플릿 생성
+        - grid-template: grid-template-xxx의 단축 속성
+        - row-gap(grid-row-gap): 행과 행 사이의 간격을 정의
+        - column-gap(grid-column-gap): 열과 열 사이의 간격을 정의
+        - gap(grid-gap): xxx-gap의 단축 속성
+        - grid-auto-rows: 암시적인 행의 크기를 정의
+        - grid-auto-columns: 암시적인 열의 크기를 정의
+        - grid-auto-flow: 자동 배치 알고리즘 방식을 정의
+        - grid: grid-template-xxx와 grid-auto-xxx의 단축 속성
+        - align-content: 그리드 콘텐츠를 수직 정렬
+        - justify-content: 그리드 콘텐츠를 수평 정렬
+        - place-content: align-content와 justify-content의 단축 속성
+        - align-items: 그리드 아이템을 수직 정렬
+        - justify-items: 그리드 아이템들을 수평 정렬
+        - place-items: align-items와 justify-items의 단축 속성
+*/
+/*
+    Grid Item Properties
+        - grid-row-start: 그리드 아이템의 행 시작 위치 지정
+        - grid-row-end: 그리드 아이템의 행 끝 위치 지정
+        - grid-row: grid-row-xxx의 단축 속성
+        - grid-column-start: 그리드 아이템의 열 시작 위치 지정
+        - grid-column-end: 그리드 아이템의 열 끝 위치 지정
+        - grid-column: grid-column-xxx의 단축 속성
+        - grid-area: 영역 이름을 설정하거나, grid-row와 grid-column의 단축 속성
+        - align-self: 단일 그리드 아이템을 수직 정렬
+        - justify-self: 단일 그리드 아이템을 수평 정렬
+        - place-self: align-self와 justify-self의 단축 속성
+        - order: 그리드 아이템의 배치 순서를 지정
+        - z-index: 그리드 아이템의 쌓이는 순서를 지정
+*/
+.container {
+    // Grid Container 정의
+    // 그리드를 사용하기 위해 컨테이너에 필수로 작성
+    display: grid;
+    // display: inline-grid
+
+    width: 600px;
+    height: 600px;
+}
+
+// 그리드 형태 정의
+// grid-template-rows,columns
+// 컨테이너에 Grid 트랙의 크기들을 지정해주는 속성
+// Grid 트랙은  Grid의 행 또는 열을 뜻함
+.container {
+    // 열의 배치
+    grid-template-columns: 250px 250px 250px;
+
+    // 행의 배치
+    // grid-template-rows: 200px 200px 200px;
+
+    // fr(fraction) : 숫자 비율대로 트랙의 크기를 나눈다
+    // 아래 1fr 1fr 1fr은 균일하게 1:1:1 비율인 3개의 column을 만든다는 의미
+    // 이 옵션은 트랙의 길이를 정할 수 있게 상위 엘리먼트의 길이가 정해져있어야 함 or 반대 길이가 정해져있어야 함 (rows <-> columns)
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
