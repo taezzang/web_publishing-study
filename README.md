@@ -9,3 +9,5 @@ https://velog.io/@bellecode20/%EC%9D%B4%EC%A0%9C-import-%EB%8C%80%EC%8B%A0-use%E
 해당 강의 진행 후 실무에서 vue3 컴포넌트 스타일시트 작성시 적용할 예정
 
 ## Grid 공부 정리
+
+Grid 문법은 https://studiomeal.com/archives/533 참고하여 진행하였습니다.
