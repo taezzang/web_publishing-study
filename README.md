@@ -11,3 +11,4 @@ https://velog.io/@bellecode20/%EC%9D%B4%EC%A0%9C-import-%EB%8C%80%EC%8B%A0-use%E
 ## Grid 공부 정리
 
 Grid 문법은 https://studiomeal.com/archives/533 참고하여 진행하였습니다.
+해당 강의 진행 시 임의로 Scss를 적용해서 
