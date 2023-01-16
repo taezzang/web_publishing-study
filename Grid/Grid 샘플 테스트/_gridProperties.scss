@@ -63,3 +63,32 @@
     grid-template-rows: 1fr 1fr 1fr;
     grid-template-columns: 1fr 1fr 1fr;
 }
+
+.container {
+    // repeat 함수
+    // 반복되는 값을 자동으로 처리할 수 있는 함수
+    grid-template-columns: repeat(5, 1fr);
+    // grid-template-columns: 1fr 1fr 1fr 1fr 1fr << 과 동일
+
+    // repeat(3, 1fr, 4fr, 2fr); 이런 식의 패턴도 가능
+}
+
+.container {
+    // minmax 함수
+    // 최소값과 최댓값을 지정할 수 있는 함수
+    // ex) minmax(100px, auto)의 의미는 최소 100px, 최대는 자동으로 (auto) 한다는 뜻
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, minmax(100px, auto));
+}
+
+.container {
+    // auto-fill과 auto-fit
+    // column의 개수를 미리 정하지 않고 설정된 너비가 허용하는 한 최대한 셀을 채움
+
+    grid-template-columns: repeat(auto-fill, minmax(20%, auto));
+    // auto-fill이 20% 이니 1개의 row에는 5개의 셀이 들어감
+    // 셀의 개수가 5개보다 모자라면 공간이 남게 됨
+
+    // 여기서 auto-fill 대신 auto-fit을 사용하면 남는 공간을 채움
+    // 이것이 둘의 차이점
+}
