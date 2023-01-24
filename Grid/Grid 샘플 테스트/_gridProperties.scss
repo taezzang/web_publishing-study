@@ -1,6 +1,22 @@
 // Css Grid 학습 중 Properties 관련 부분
 
 /*
+    용어 정리
+        - 그리드 컨테이너 : display: grid를 적용하는, Grid의 전체 영역
+            Grid 컨테이너 안의 요소들이 Grid 규칙의 영향을 받아 정렬된다고 생각
+
+        - 그리드 아이템 : Grid 컨테이너의 자식 요소들, Grid 규칙에 의해 배치된다
+        - 그리드 트랙 : Grid의 행 또는 열
+        - 그리드 셀 : Grid의 한 칸을 가리키는 말, 그리드 아이템 하나가 들어가는 가상의 칸 이라고 생각
+        - 그리드 라인 : Grid 셀을 구분하는 선
+        - 그리드 번호 : Grid 라인의 각 번호
+        - 그리드 갭 : Grid 셀 사이의 간격
+        - 그리드 영역 : Grid 라인으로 둘러싸인 사각형 영역으로, 그리드 셀의 집합        
+*/
+
+// Grid의 속성들은 Flex와 마찬가지로, 컨테이너에 적용 or 아이템에 적용하는 속성들, 이렇게 두 가지로 나뉜다
+
+/*
     Grid Container Properties
         - display: 그리드 컨테이너를 정의
         - grid-template-rows: 명시적 행의 크기를 정의
@@ -21,6 +37,7 @@
         - justify-items: 그리드 아이템들을 수평 정렬
         - place-items: align-items와 justify-items의 단축 속성
 */
+
 /*
     Grid Item Properties
         - grid-row-start: 그리드 아이템의 행 시작 위치 지정
