@@ -121,4 +121,74 @@
 
     gap: 10px 20px;
     // row-gap 10px; column-gap: 20px;
+
+    gap: 20px;
+    // row-gap 20px; column-gap: 20px;
+
+    grid-gap: 20px;
+    gap: 20px;
+    // 브라우저 호환 범위를 넓히기 위해 아래처럼 이전 버전의 이름과 현재 버전 이름을 둘 다 쓰기도 함
+}
+
+// ※그리드 형태를 자동으로 정의
+.container {
+    grid-template-rows: repeat(3, minmax(100px, auto));
+    // row가 3개로 정해져있을 때엔 위 코드와 같이 최소 100px의 높이 및 컨텐츠가 100px을 넘어갈 시 자동으로 늘어나도록 할 수 있는데 만약 row 개수를 알지 못한다면..?
+
+    grid-auto-rows: minmax(100px, auto);
+    // 이와 같이 template 자리에 auto를 넣는 형식으로 대체 가능하다
+    // 굳이 횟수를 지정해서 반복할 필요 없이 알아서 처리된다
+}
+
+// ※각 셀의 영역 지정
+// 해당 부분은 사이트 설명 참고
+
+// ※영역 이름으로 그리드 정의
+.container {
+    grid-template-areas:
+        'header header header'
+        'a main b'
+        '. . .'
+        'footer footer footer';
+
+    // 각 영역(grid Area)에 이름을 붙이고, 그 이름을 이용해서 배치하는 방법 (매우 직관적)
+
+    // 그런데 각 영여의 이름은 어떻게 매칭해야 할까...
+    .header {
+        grid-area: header;
+    }
+    .sidebar-a {
+        grid-area: a;
+    }
+    .main-content {
+        grid-area: main;
+    }
+    .sidebar-b {
+        grid-area: b;
+    }
+    .footer {
+        grid-area: footer;
+    }
+    // 이름 값에 따옴표는 붙이지 않게 작성
+}
+
+// ※자동 배치 grid-auto-flow
+// 아이템이 자동 배치되는 흐름을 결정하는 속성
+
+// 예시는 A, B, C, D, E, F, G, H, I 셀까지 존재한다고 가정
+.container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(25%, auto)); // 자동 채움, 가로 기본 크기는 25%, 넘으면 자동
+    grid-template-rows: repeat(5, minmax(50px, auto)); // 5줄, 세로 기본 크기는 50px, 넘으면 자동
+    grid-auto-flow: dense;
+    // dense는 기본적으로 빈 셀을 채우는 알고리즘이며, row와 column 에 따라 기준이 달라진다
+}
+item:nth-child(2) {
+    grid-column: auto / span 3;
+}
+item:nth-child(5) {
+    grid-column: auto / span 3;
+}
+item:nth-child(7) {
+    grid-column: auto / span 2;
 }
